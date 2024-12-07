@@ -11,31 +11,29 @@ router.post("/upload", upload.single("image"), async (req: Request, res: Respons
     try {
         const { title, description, price } = req.body;
 
+        console.log("Title: ", title);
+        console.log("Description: ", description);
+        console.log("Price: ", price);
+
         const newOffer: IOffer = new Offer({
             title,
             description,
             price
         });
     
-        await newOffer.save();
-/*
-        if (!req.file) {
-            res.status(400).json({message: "No file uploaded"})
-            return
+        // Save the image if present
+        if (req.file) {
+            const newImage = new Image({
+                filename: req.file.filename,
+                path: `/images/${req.file.filename}`
+            });
+
+            await newImage.save();
+            newOffer.imageId = newImage.id;
         }
 
-        const imgPath: string = req.file.path.replace("public", "")
-
-        const image: IImage = new Image({
-            filename: req.file.filename,
-            description: req.body.description,
-            path: imgPath
-        })
-        await image.save()
-        console.log("File uploaded and saved in the database")
-        res.status(201).json({message: "File uploaded and saved in the database"})
-        return
-*/
+        await newOffer.save();
+        res.status(201).send({ message: 'Offer created successfully' });
     } catch(error: any) {
         console.error(`Error while uploading file: ${error}`)
         res.status(500).json({message: 'Internal server error'})

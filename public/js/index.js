@@ -1,7 +1,6 @@
 document.getElementById("offerForm").addEventListener("submit", async function(event) {
     event.preventDefault()
     const formData = new FormData(this)
-    formData.append("description", document.getElementById("desc").value)
 
     try {
         const response = await fetch("/upload", {
@@ -15,5 +14,6 @@ document.getElementById("offerForm").addEventListener("submit", async function(e
     } catch(error) {
         console.log("Error: ", error)
     } finally {
+        console.log("Added successfully")
     }
 })
