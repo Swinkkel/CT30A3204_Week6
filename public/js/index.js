@@ -2,6 +2,11 @@ document.getElementById("offerForm").addEventListener("submit", async function(e
     event.preventDefault()
     const formData = new FormData(this)
 
+
+    formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+    });
+
     try {
         const response = await fetch("/upload", {
             method: "POST",

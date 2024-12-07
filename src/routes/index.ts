@@ -11,9 +11,10 @@ router.post("/upload", upload.single("image"), async (req: Request, res: Respons
     try {
         const { title, description, price } = req.body;
 
-        console.log("Title: ", title);
-        console.log("Description: ", description);
-        console.log("Price: ", price);
+        console.log("Title: ", title)
+        console.log("Description: ", description)
+        console.log("Price: ", price)
+        console.log("File: ", req.file)
 
         const newOffer: IOffer = new Offer({
             title,
