@@ -1,9 +1,9 @@
-import mongoose, {Document, Schema} from "mongoose";
+import mongoose, {Document, ObjectId, Schema} from "mongoose";
 
 interface IImage extends Document {
     filename: string
     path: string
-    id?: string
+    _id: ObjectId
 }
 
 const imageSchema = new Schema({

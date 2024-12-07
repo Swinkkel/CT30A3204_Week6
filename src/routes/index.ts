@@ -28,8 +28,8 @@ router.post("/upload", upload.single("image"), async (req: Request, res: Respons
                 path: `/images/${req.file.filename}`
             });
 
-            await newImage.save();
-            newOffer.imageId = newImage.id;
+            const savedImage = await newImage.save();
+            newOffer.imageId = savedImage._id.toString();
         }
 
         await newOffer.save();
