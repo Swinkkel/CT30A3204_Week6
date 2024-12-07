@@ -41,12 +41,15 @@ const fetchOfferData = async() => {
 
 const displayOffers = (offerData) => {
     const offersContainer = document.getElementById("offersContainer")
+    container.innerHTML = "";
+
     for(let i=0; i < offerData.length; i++) {
         const offerItem = document.createElement("div")
         offerItem.classList.add("offerDiv")
 
+        const baseUrl = window.location.origin
         const img = document.createElement("img")
-        img.src = `http://localhost:8000/${offerData[i].path}`
+        img.src = `${baseUrl}/${offerData[i].imagePath}`
 
         const title = document.createElement("p")
         title.textContent = offerData[i].title

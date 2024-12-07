@@ -50,6 +50,8 @@ router.get("/offers", async (req: Request, res: Response) => {
             return
         }
 
+        console.log("Nr offers: ", offers.length)
+
         const results = await Promise.all(
             offers.map(async (offer) => {
                 const image = offer.imageId
@@ -63,6 +65,8 @@ router.get("/offers", async (req: Request, res: Response) => {
                 };
             })
         );
+
+        console.log(results)
 
         res.json(results);
     } catch (error: any) {
