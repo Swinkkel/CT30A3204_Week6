@@ -42,4 +42,34 @@ router.post("/upload", upload.single("image"), async (req: Request, res: Respons
     }
  })
 
+router.get("/offers", async (req: Request, res: Response) => {
+    try {
+        const offers: IOffer[] | null = await Offer.find()
+        if (!offers) {
+            res.status(404).json({message: 'No offers found'})
+            return
+        }
+
+        const results = await Promise.all(
+            offers.map(async (offer) => {
+                const image = offer.imageId
+                    ? await Image.findById(offer.imageId)
+                    : null;
+                return {
+                    title: offer.title,
+                    description: offer.description,
+                    price: offer.price,
+                    imagePath: image ? image.path : null
+                };
+            })
+        );
+
+        res.json(results);
+    } catch (error: any) {
+        console.error(`Error while fetching a file: ${error}`)
+        res.status(500).json({message: 'Internal server error'})
+        return
+    }
+})
+
 export default router
