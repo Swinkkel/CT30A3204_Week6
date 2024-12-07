@@ -41,27 +41,44 @@ const fetchOfferData = async() => {
 
 const displayOffers = (offerData) => {
     const offersContainer = document.getElementById("offersContainer")
-    container.innerHTML = "";
+    offersContainer.innerHTML = "";
 
     for(let i=0; i < offerData.length; i++) {
         const offerItem = document.createElement("div")
-        offerItem.classList.add("offerDiv")
+        offerItem.classList.add("offerDiv", "col", "s12", "m6", "l4")
+
+        const div1 = document.createElement("div")
+        div1.classList.add("card", "hoverable")
+        offerItem.appendChild(div1)
+
+        const div2 = document.createElement("div")
+        div2.classList.add("card-image")
+        div1.appendChild(div2)
 
         const baseUrl = window.location.origin
         const img = document.createElement("img")
         img.src = `${baseUrl}/${offerData[i].imagePath}`
+        img.classList.add("responsive-img")
+        div2.appendChild(img)
 
-        const title = document.createElement("p")
+        const title = document.createElement("span")
         title.textContent = offerData[i].title
+        title.classList.add("card-title")
+        div2.appendChild(title)
 
-        const price = document.createElement("p")
-        price.textContent = offerData[i].price
+        const div3 = document.createElement("div")
+        div3.classList.add("card-content")
 
         const description = document.createElement("p")
         description.textContent = offerData[i].description
+        div3.appendChild(description)
 
-        offerItem.appendChild(img)
-        offerItem.appendChild(description)
+        const price = document.createElement("p")
+        price.textContent = offerData[i].price
+        div3.appendChild(price)
+
+        div1.appendChild(div3)
+
         offersContainer.appendChild(offerItem)
     }
 }
