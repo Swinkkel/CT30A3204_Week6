@@ -59,7 +59,7 @@ const displayOffers = (offerData) => {
 
         offerItem.appendChild(img)
         offerItem.appendChild(description)
-        offersContainer.appendChild(imageItem)
+        offersContainer.appendChild(offerItem)
     }
 }
 
